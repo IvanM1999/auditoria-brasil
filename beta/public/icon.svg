@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Emocionário Amigo">
+  <rect width="64" height="64" rx="16" fill="#38bdf8"/>
+  <path d="M19 19h18a8 8 0 0 1 8 8v10a8 8 0 0 1-8 8h-8l-7 6v-6h-3a8 8 0 0 1-8-8V27a8 8 0 0 1 8-8Z" fill="#fff"/>
+  <circle cx="25" cy="32" r="3" fill="#38bdf8"/>
+  <circle cx="39" cy="32" r="3" fill="#38bdf8"/>
+  <path d="M25 39c4 3 10 3 14 0" fill="none" stroke="#38bdf8" stroke-linecap="round" stroke-width="3"/>
+</svg>

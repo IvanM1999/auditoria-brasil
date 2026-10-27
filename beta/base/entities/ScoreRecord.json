@@ -1,0 +1,38 @@
+{
+  "name": "ScoreRecord",
+  "type": "object",
+  "properties": {
+    "player_name": {
+      "type": "string",
+      "title": "Nome do jogador"
+    },
+    "total_points": {
+      "type": "number",
+      "title": "Pontos totais",
+      "default": 0
+    },
+    "emotional_score": {
+      "type": "number",
+      "title": "Maturidade emocional",
+      "default": 0
+    },
+    "intellectual_score": {
+      "type": "number",
+      "title": "Pontua\u00e7\u00e3o intelectual",
+      "default": 0
+    },
+    "quizzes_completed": {
+      "type": "number",
+      "title": "Quizzes completos",
+      "default": 0
+    },
+    "level": {
+      "type": "number",
+      "title": "N\u00edvel",
+      "default": 1
+    }
+  },
+  "required": [
+    "player_name"
+  ]
+}

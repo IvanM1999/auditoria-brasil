@@ -1,0 +1,47 @@
+{
+  "name": "Emotion",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Nome"
+    },
+    "emoji": {
+      "type": "string",
+      "title": "Emoji"
+    },
+    "color": {
+      "type": "string",
+      "title": "Cor suave",
+      "description": "Hex de fundo calmo"
+    },
+    "description": {
+      "type": "string",
+      "title": "Descri\u00e7\u00e3o"
+    },
+    "examples": {
+      "type": "string",
+      "title": "Exemplos",
+      "description": "Situa\u00e7\u00f5es em que essa emo\u00e7\u00e3o aparece"
+    },
+    "body_signal": {
+      "type": "string",
+      "title": "Sinais no corpo",
+      "description": "Como essa emo\u00e7\u00e3o se manifesta fisicamente"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "basica",
+        "complexa"
+      ],
+      "default": "basica",
+      "title": "Categoria"
+    }
+  },
+  "required": [
+    "name",
+    "emoji",
+    "description"
+  ]
+}

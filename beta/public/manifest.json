@@ -1,0 +1,20 @@
+{
+  "name": "Emocionário Amigo",
+  "short_name": "Emocionário",
+  "description": "App educativo sobre emoções e autismo, com leitura offline.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f0f9ff",
+  "theme_color": "#7dd3fc",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Autismo: ficha técnica",
+    "publisher": "Organização Mundial da Saúde (OMS)",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders",
+    "kind": "orientacao",
+    "summary": "Base geral sobre autismo, direitos, apoio, inclusão e necessidade de serviços coordenados. Não é um protocolo de diagnóstico individual.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Autism spectrum disorder in adults: diagnosis and management (CG142)",
+    "publisher": "NICE, Reino Unido",
+    "url": "https://www.nice.org.uk/guidance/cg142",
+    "kind": "diretriz",
+    "summary": "Diretriz clínica para avaliação, suporte e organização do cuidado de adultos autistas. Deve ser adaptada ao sistema de saúde local.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Autism spectrum disorder in under 19s: support and management (CG170)",
+    "publisher": "NICE, Reino Unido",
+    "url": "https://www.nice.org.uk/guidance/cg170",
+    "kind": "diretriz",
+    "summary": "Diretriz de apoio para crianças e adolescentes autistas, útil para famílias e equipes, sem substituir avaliação profissional.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Autism",
+    "publisher": "NHS, Reino Unido",
+    "url": "https://www.nhs.uk/conditions/autism/",
+    "kind": "orientacao",
+    "summary": "Informações públicas sobre sinais, avaliação, suporte e convivência com autismo.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Autism Spectrum Disorder",
+    "publisher": "National Institute of Mental Health (NIMH), EUA",
+    "url": "https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd",
+    "kind": "orientacao",
+    "summary": "Visão geral baseada em pesquisa sobre autismo, avaliação e tratamentos de suporte.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "About Autism Spectrum Disorder",
+    "publisher": "Centers for Disease Control and Prevention (CDC), EUA",
+    "url": "https://www.cdc.gov/autism/about/index.html",
+    "kind": "orientacao",
+    "summary": "Informação pública sobre autismo, desenvolvimento, identificação e apoio.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Autismo",
+    "publisher": "Ministério da Saúde, Brasil",
+    "url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/a/autismo",
+    "kind": "brasil",
+    "summary": "Portal oficial brasileiro para orientações e políticas públicas relacionadas ao autismo.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Busca de estudos sobre autistic burnout",
+    "publisher": "PubMed / National Library of Medicine, EUA",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/?term=autistic+burnout",
+    "kind": "pesquisa",
+    "summary": "Busca bibliográfica para localizar estudos revisados por pares. O termo ainda possui definições e medidas em desenvolvimento; resultados devem ser lidos criticamente.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Having all of your internal resources exhausted beyond measure",
+    "publisher": "PubMed / Autism in Adulthood",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/32851204/",
+    "kind": "pesquisa",
+    "summary": "Estudo qualitativo que reúne descrições de burnout autista e ajuda a compreender a experiência relatada por pessoas autistas. Não define sozinho tratamento ou diagnóstico.",
+    "checked_at": "2026-09-18"
+  },
+  {
+    "title": "Apoio emocional e prevenção do suicídio",
+    "publisher": "Centro de Valorização da Vida (CVV), Brasil",
+    "url": "https://cvv.org.br/",
+    "kind": "crise",
+    "summary": "Canal brasileiro de apoio emocional. Em risco imediato, procure o SAMU (192), uma emergência ou serviço local de urgência.",
+    "checked_at": "2026-09-18"
+  }
+]

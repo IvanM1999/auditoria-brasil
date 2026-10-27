@@ -1,0 +1,46 @@
+{
+  "name": "BlogPost",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "T\u00edtulo"
+    },
+    "excerpt": {
+      "type": "string",
+      "title": "Resumo"
+    },
+    "content": {
+      "type": "string",
+      "title": "Conte\u00fado",
+      "description": "Texto completo do artigo"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "autismo",
+        "emocoes",
+        "dicas",
+        "diagnostico",
+        "vida_adulta",
+        "trabalho"
+      ],
+      "default": "autismo",
+      "title": "Categoria"
+    },
+    "author": {
+      "type": "string",
+      "title": "Autor",
+      "default": "Equipe Emocion\u00e1rio Amigo"
+    },
+    "read_time": {
+      "type": "string",
+      "title": "Tempo de leitura",
+      "default": "3 min"
+    }
+  },
+  "required": [
+    "title",
+    "content"
+  ]
+}

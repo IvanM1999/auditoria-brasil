@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: emocionario-amigo
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/app.sqlite
+      - key: ADMIN_EMAIL
+        value: admin@emocionarioamigo.com
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: BLOG_SOURCE_URL
+        value: https://base44.app/api/apps/6a8515dbf1889a329b49695f/entities/BlogPost?sort=-created_date&limit=50
+      - key: AI_MODEL_PRIMARY
+        value: llama3.2:3b
+      - key: AI_MODEL_SECONDARY
+        value: qwen2.5:3b
+      - key: AI_REQUEST_TIMEOUT_MS
+        value: "12000"
+      - key: AI_MAX_INPUT_CHARS
+        value: "4000"
+      - key: AI_MAX_OUTPUT_CHARS
+        value: "4000"
+      - key: AI_PROVIDER_PRIMARY_URL
+        sync: false
+      - key: AI_PROVIDER_SECONDARY_URL
+        sync: false
+    disk:
+      name: app-data
+      mountPath: /var/data
+      sizeGB: 1
