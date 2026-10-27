@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { api } from "@/api/localApi";
+import { Link } from "react-router-dom";
+import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,8 +14,6 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
-  const isAdminLogin = ["/adm", "/site/adm"].includes(location.pathname);
   // Post-login destination (e.g. the MCP OAuth consent page sends users here
   // with returnTo so the grant flow can resume). Same-origin paths only.
   const returnTo = safeReturnTo();
@@ -25,13 +23,8 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      if (isAdminLogin) {
-        await api.auth.loginAdmin(email, password);
-        window.location.href = "/admin/blog";
-      } else {
-        await api.auth.loginViaEmailPassword(email, password);
-        window.location.href = returnTo;
-      }
+      await base44.auth.loginViaEmailPassword(email, password);
+      window.location.href = returnTo;
     } catch (err) {
       setError(err.message || "Invalid email or password");
     } finally {
@@ -40,7 +33,7 @@ export default function Login() {
   };
 
   const handleGoogle = () => {
-    api.auth.loginWithProvider("google", returnTo);
+    base44.auth.loginWithProvider("google", returnTo);
   };
 
   return (
