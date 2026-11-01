@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "@/lib/useLocation";
 import { loadCandidates } from "@/lib/candidates";
 import { fetchMediaIndex } from "@/lib/evaluations";
-import { CARGOS, PLEITO_ORDER, esferaLabel } from "@/lib/audit";
+import { CARGOS, PLEITO_ORDER } from "@/lib/audit";
 import CandidateCard from "@/components/CandidateCard";
 
 export default function Candidatos() {
