@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import {
   Users, Building2, BookOpen, GraduationCap, FileText, ArrowRight,
-  ShieldCheck, FileSearch, Link2, MailCheck, Landmark, ScrollText,
+  ShieldCheck, FileSearch, Link2, MailCheck, Landmark, ScrollText, MapPin,
 } from "lucide-react";
-import { Image } from "@/components/ui/image";
+import { useState } from "react";
+import { useLocation } from "@/lib/useLocation";
 
-const CONGRESSO_IMG = "https://media.base44.com/images/public/6ac00c5d4dd8bd2bf9718750/884bbf45d_generated_image.png";
+const ESTADOS = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"];
 
 const SECTIONS = [
   { to: "/politicos", icon: Users, kicker: "Pessoas", title: "Políticos", desc: "Perfis com dados cadastrais, cargos e mandatos, cada campo ligado à fonte oficial e à data da consulta." },
@@ -19,7 +20,7 @@ const PILARES = [
   { icon: Landmark, title: "Fonte oficial", desc: "Cada registro aponta para o documento ou base pública que o sustenta, com URL e data de consulta." },
   { icon: ShieldCheck, title: "Validação", desc: "Formato, identidade, período e origem são verificados. Falhas e divergências são exibidas, não escondidas." },
   { icon: Link2, title: "Proveniência", desc: "Nenhum campo é preenchido por inferência. Sem dado confirmado, o registro exibe a ausência." },
-  { icon: MailCheck, title: "Correção pública", desc: "Qualquer pessoa pode sinalizar erro ou fonte quebrada; o estado do reporte fica visível." },
+  { icon: MailCheck, title: "Correção pública", desc: "Erros e fontes quebradas podem ser reportados; o andamento fica visível na issue correspondente." },
 ];
 
 const DESTAQUES = [
@@ -38,14 +39,26 @@ const FONTES = [
 ];
 
 export default function Home() {
+  const { location, setLocation } = useLocation();
+  const [cidade, setCidade] = useState(location?.cidade || "");
+  const [estado, setEstado] = useState(location?.estado || "");
+  const [locationError, setLocationError] = useState("");
+
+  function saveLocation(event) {
+    event.preventDefault();
+    if (!cidade.trim() || !ESTADOS.includes(estado)) {
+      setLocationError("Informe uma cidade e selecione um estado.");
+      return;
+    }
+    setLocation({ cidade, estado });
+    setLocationError("");
+  }
+
   return (
     <div>
       {/* HERO */}
       <section className="relative bg-primary text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 opacity-20" aria-hidden="true">
-          <Image src={CONGRESSO_IMG} alt="" fittingType="fill" className="w-full h-full" />
-          <div className="absolute inset-0 bg-primary/50" />
-        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent" aria-hidden="true" />
         <div className="relative max-w-[1440px] mx-auto px-6 md:px-12 py-16 md:py-24">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-highlight font-bold">
@@ -72,6 +85,45 @@ export default function Home() {
             </p>
           </div>
         </div>
+      </section>
+
+      <section className="max-w-[1440px] mx-auto px-6 md:px-12 py-8 border-b border-border" aria-labelledby="localidade-titulo">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 id="localidade-titulo" className="font-display text-xl">Seu município</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {location ? `Localidade selecionada: ${location.cidade} · ${location.estado}` : "Informe sua localidade para consultar candidatos do seu pleito."}
+            </p>
+          </div>
+          <form onSubmit={saveLocation} className="flex flex-wrap gap-2" aria-label="Selecionar localidade">
+            <label className="sr-only" htmlFor="municipio">Cidade</label>
+            <input
+              id="municipio"
+              value={cidade}
+              onChange={(event) => setCidade(event.target.value)}
+              placeholder="Cidade"
+              maxLength={100}
+              required
+              className="border border-border bg-card px-3 py-2 text-sm"
+            />
+            <label className="sr-only" htmlFor="estado">Estado</label>
+            <select
+              id="estado"
+              value={estado}
+              onChange={(event) => setEstado(event.target.value)}
+              required
+              className="border border-border bg-card px-3 py-2 text-sm"
+            >
+              <option value="">UF</option>
+              {ESTADOS.map((uf) => <option key={uf} value={uf}>{uf}</option>)}
+            </select>
+            <button type="submit" className="inline-flex items-center gap-2 bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground">
+              <MapPin className="h-4 w-4" aria-hidden="true" />
+              Salvar
+            </button>
+          </form>
+        </div>
+        {locationError && <p role="alert" className="mt-2 text-sm text-destructive">{locationError}</p>}
       </section>
 
       {/* SEÇÕES */}
