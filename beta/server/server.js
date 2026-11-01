@@ -11,7 +11,6 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 3000);
 const databasePath = process.env.DATABASE_PATH || path.join(root, "..", "data", "app.sqlite");
 const jwtSecret = process.env.JWT_SECRET || (process.env.NODE_ENV === "production" ? "" : "local-development-only-secret");
-const blogSourceUrl = process.env.BLOG_SOURCE_URL || "https://base44.app/api/apps/6a8515dbf1889a329b49695f/entities/BlogPost?sort=-created_date&limit=50";
 const aiProviders = [
   { name: "primary", url: process.env.AI_PROVIDER_PRIMARY_URL, model: process.env.AI_MODEL_PRIMARY || "llama3.2:3b" },
   { name: "secondary", url: process.env.AI_PROVIDER_SECONDARY_URL, model: process.env.AI_MODEL_SECONDARY || "qwen2.5:3b" },
@@ -58,6 +57,10 @@ const mimeTypes = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
+  ".gif": "image/gif",
+  ".webp": "image/webp",
+  ".avif": "image/avif",
+  ".ico": "image/x-icon",
   ".woff2": "font/woff2",
 };
 const contentTypeFor = (filePath) => mimeTypes[path.extname(filePath).toLowerCase()] || "application/octet-stream";
@@ -159,21 +162,6 @@ const seedLocalCatalog = () => {
   seed();
   console.log(`Catálogo local carregado: ${emotions.length} emoções e ${combinations.length} combinações`);
 };
-const seedBlogPosts = async () => {
-  if (db.prepare("SELECT COUNT(*) AS count FROM blog_posts").get().count > 0) return;
-  const response = await fetch(blogSourceUrl, { headers: { "X-App-Id": "6a8515dbf1889a329b49695f" } });
-  if (!response.ok) throw new Error(`Não foi possível carregar os artigos iniciais: HTTP ${response.status}`);
-  const posts = await response.json();
-  const insert = db.prepare("INSERT INTO blog_posts (id, title, excerpt, content, category, author, read_time, status, created_date, updated_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-  const insertMany = db.transaction((records) => {
-    for (const post of records) {
-      if (!post.title || !post.content) continue;
-      insert.run(post.id || crypto.randomUUID(), post.title, post.excerpt || "", post.content, post.category || "autismo", post.author || "Equipe Emocionário Amigo", post.read_time || "", "published", post.created_date || now(), post.created_date || now());
-    }
-  });
-  insertMany(posts);
-  console.log(`Artigos iniciais importados: ${posts.length}`);
-};
 const listEntity = (table, sort, limit, publicOnly = false) => {
   const descending = sort?.startsWith("-");
   const field = (descending ? sort.slice(1) : sort) || "created_date";
@@ -216,7 +204,7 @@ const server = http.createServer(async (request, response) => {
       if (!email || !password || password.length < 8) return json(response, 400, { error: "Dados de cadastro inválidos" });
       const user = { id: id(), email, role: "user", password_hash: await bcrypt.hash(password, 12), created_at: now() };
       try { db.prepare("INSERT INTO users VALUES (@id, @email, @password_hash, @role, @created_at)").run(user); } catch { return json(response, 409, { error: "Este e-mail já está cadastrado" }); }
-      return json(response, 201, { email });
+      return json(response, 201, { user: userResponse(user), access_token: tokenFor(user) });
     }
     if (url.pathname === "/api/auth/verify" && request.method === "POST") {
       const { email, password } = await body(request);
@@ -224,7 +212,12 @@ const server = http.createServer(async (request, response) => {
       if (!user || !(await bcrypt.compare(password, user.password_hash))) return json(response, 401, { error: "Cadastro não encontrado" });
       return json(response, 200, { user: userResponse(user), access_token: tokenFor(user) });
     }
-    if (url.pathname === "/api/auth/reset" && request.method === "POST") return json(response, 204, null);
+    if (url.pathname === "/api/auth/reset" && request.method === "POST") {
+      return json(response, 501, { error: "Recuperação por e-mail ainda não está configurada" });
+    }
+    if (url.pathname === "/api/auth/reset-password" && request.method === "POST") {
+      return json(response, 501, { error: "Redefinição de senha ainda não está configurada" });
+    }
     if (url.pathname === "/api/admin/login" && request.method === "POST") {
       const { email, password } = await body(request);
       if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) return json(response, 401, { error: "Credenciais administrativas inválidas" });
@@ -289,6 +282,4 @@ server.on("error", (error) => {
   throw error;
 });
 seedLocalCatalog();
-seedBlogPosts()
-  .catch((error) => console.error(error.message))
-  .finally(() => server.listen(port, "0.0.0.0", () => console.log(`Servidor ativo na porta ${port}`)));
+server.listen(port, "0.0.0.0", () => console.log(`Servidor ativo na porta ${port}`));
