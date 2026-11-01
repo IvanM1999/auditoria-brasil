@@ -24,8 +24,9 @@ SQLite. Preserve as convenções existentes e mantenha alterações focadas.
 - O Render executa `npm ci --include=dev`, `npm run build` e `npm start` a
   partir de `beta`; a instalação inclui ferramentas de build mesmo com
   `NODE_ENV=production`.
-- O SQLite de produção deve permanecer no disco persistente montado em
-  `/var/data`; nunca dependa do filesystem efêmero do serviço.
+- O Blueprint do Render usa o plano gratuito e SQLite efêmero em
+  `/tmp/auditoria-brasil/app.sqlite`; não trate dados locais como duráveis.
+  Persistência de produção exige migrar para um banco externo persistente.
 - As sessões e os dados eleitorais ainda dependem do Base44 configurado por
   `VITE_BASE44_APP_ID` e `VITE_BASE44_APP_BASE_URL`.
 - Mantenha segredos e URLs privados de provedores somente no backend. Variáveis

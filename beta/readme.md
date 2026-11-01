@@ -48,9 +48,15 @@ Command está como `npm ci --include=dev && npm run build` e Start Command como
 `npm start`; configurações antigas do painel podem continuar substituindo os
 comandos do Blueprint.
 
-O disco persistente do Render é montado em `/var/data`; o SQLite usa
-`DATABASE_PATH=/var/data/app.sqlite`. O plano configurado é `starter`, necessário
-para o disco persistente.
+O Blueprint usa o plano gratuito e grava o SQLite em
+`/tmp/auditoria-brasil/app.sqlite`; não requer disco persistente. O filesystem
+do plano gratuito é efêmero: os dados locais do SQLite são perdidos quando o
+serviço reinicia, volta de uma suspensão ou recebe um novo deploy. O Render
+suspende serviços gratuitos após 15 minutos sem tráfego, e a retomada pode
+demorar cerca de um minuto. Use essa configuração para demonstrações e testes,
+nunca como armazenamento durável de produção. Para manter dados entre deploys,
+migre o SQLite para um banco externo persistente antes de depender dos recursos
+locais de administração.
 
 Configure no painel do Render:
 

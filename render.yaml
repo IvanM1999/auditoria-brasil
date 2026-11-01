@@ -2,7 +2,7 @@ services:
   - type: web
     name: auditoria-brasil
     runtime: node
-    plan: starter
+    plan: free
     rootDir: beta
     buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
@@ -16,7 +16,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: DATABASE_PATH
-        value: /var/data/app.sqlite
+        value: /tmp/auditoria-brasil/app.sqlite
       - key: ADMIN_EMAIL
         value: admin@auditoria-brasil.com
       - key: ADMIN_PASSWORD
@@ -39,7 +39,3 @@ services:
         sync: false
       - key: AI_PROVIDER_SECONDARY_URL
         sync: false
-    disk:
-      name: app-data
-      mountPath: /var/data
-      sizeGB: 1
