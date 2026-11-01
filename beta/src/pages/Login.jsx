@@ -33,7 +33,11 @@ export default function Login() {
   };
 
   const handleGoogle = () => {
-    base44.auth.loginWithProvider("google", returnTo);
+    try {
+      base44.auth.loginWithProvider("google", returnTo);
+    } catch (err) {
+      setError(err.message || "Login com Google não está configurado neste serviço.");
+    }
   };
 
   return (
