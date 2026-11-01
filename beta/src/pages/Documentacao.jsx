@@ -95,11 +95,12 @@ export default function Documentacao() {
         <p>
           Qualquer pessoa pode sinalizar erro ou fonte indisponível em um registro, pelo botão
           <strong> “Reportar erro ou fonte quebrada”</strong> disponível nos perfis e nas fichas históricas.
+          O botão abre um formulário de issue no GitHub; é preciso concluir o envio nessa página. Não inclua
+          informações pessoais desnecessárias no reporte.
         </p>
         <p>
-          O reporte é registrado com o estado <strong>recebido</strong> e não altera dados oficiais
-          diretamente. A correção só ocorre após conferência na fonte original, e o estado do reporte fica
-          visível no sistema.
+          Os dados oficiais não são alterados automaticamente. A correção só ocorre após conferência na
+          fonte original; o andamento do reporte pode ser acompanhado na issue correspondente.
         </p>
         <p>
           Correções que alterem um registro são feitas a partir da fonte, preservando a data da nova consulta.
@@ -119,7 +120,8 @@ export default function Documentacao() {
           reporte.
         </p>
         <p>
-          Contato opcional informado em um reporte é usado apenas para retorno sobre aquele reporte.
+          Não informe dados pessoais sensíveis em issues públicas. O reporte deve conter somente os dados
+          necessários para localizar o registro e verificar a fonte.
         </p>
       </Section>
 
