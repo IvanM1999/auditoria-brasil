@@ -5,7 +5,6 @@ import { useLocation } from "@/lib/useLocation";
 import { loadCandidates, groupByCargo } from "@/lib/candidates";
 import { fetchMediaIndex } from "@/lib/evaluations";
 import { PLEITO_ORDER, CARGOS, esferaLabel } from "@/lib/audit";
-import { generateVotingDossierPDF } from "@/lib/pdf";
 import { base44 } from "@/api/base44Client";
 import ScoreBadge from "@/components/ScoreBadge";
 import AlertPill from "@/components/AlertPill";
@@ -42,6 +41,12 @@ export default function DossiêVoto() {
     } catch (e) {}
     setSyncing(false);
     load();
+  }
+
+  async function downloadDossier() {
+    if (!selections.length) return;
+    const { generateVotingDossierPDF } = await import("@/lib/pdf");
+    generateVotingDossierPDF(location, selections);
   }
 
   if (!location) {
@@ -92,7 +97,7 @@ export default function DossiêVoto() {
           </p>
           <div className="flex flex-wrap items-center gap-3 mt-8">
             <button
-              onClick={() => selections.length && generateVotingDossierPDF(location, selections)}
+              onClick={downloadDossier}
               disabled={!selections.length}
               className="inline-flex items-center gap-2 bg-highlight text-primary px-6 py-3 text-sm font-bold hover:opacity-90 transition-opacity disabled:opacity-40"
             >

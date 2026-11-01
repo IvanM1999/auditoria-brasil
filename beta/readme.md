@@ -39,10 +39,14 @@ deploy separado.
 ## Deploy no Render
 
 O Blueprint está em [`../render.yaml`](../render.yaml), na raiz do repositório.
-Ele define `beta` como diretório do serviço, compila com
-`npm ci --include=dev && npm run build`
-e inicia a API com `npm start`. A API serve o build do frontend e as rotas
-`/api` no mesmo serviço.
+Ele define `beta` como diretório do serviço; os comandos `npm ci --include=dev`,
+`npm run build` e `npm start` são executados dentro desse diretório. A API serve
+o build do frontend e as rotas `/api` no mesmo serviço.
+
+Após alterar o Blueprint, sincronize-o no painel do Render. Confirme que Build
+Command está como `npm ci --include=dev && npm run build` e Start Command como
+`npm start`; configurações antigas do painel podem continuar substituindo os
+comandos do Blueprint.
 
 O disco persistente do Render é montado em `/var/data`; o SQLite usa
 `DATABASE_PATH=/var/data/app.sqlite`. O plano configurado é `starter`, necessário
@@ -50,6 +54,7 @@ para o disco persistente.
 
 Configure no painel do Render:
 
+- `JWT_SECRET` é gerado pelo Blueprint. Se o servidor iniciar com `JWT_SECRET is required`, sincronize o Blueprint no Render para aplicar essa variável ao serviço existente ou defina `JWT_SECRET` em Environment no painel e faça um novo deploy. Use um valor aleatório forte; não o publique nem use uma variável `VITE_*`.
 - `VITE_BASE44_APP_ID`: ID do app Base44 que ainda hospeda autenticação, entidades e funções eleitorais; obrigatório para esses recursos.
 - `VITE_BASE44_APP_BASE_URL`: opcional; origem HTTPS da API Base44 (padrão `https://base44.app`).
 - `AI_PROVIDER_PRIMARY_URL` e `AI_PROVIDER_SECONDARY_URL`: opcionais; URLs dos provedores compatíveis.
