@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Smile, Brain, BookOpen, Trophy, Menu, X, Puzzle } from "lucide-react";
+import { Home, Users, Building2, BookOpen, FileText, Menu, X, Map } from "lucide-react";
 
 const navItems = [
   { to: "/", label: "Início", icon: Home },
-  { to: "/emocionario", label: "Emocionário", icon: Smile },
-  { to: "/desafios", label: "Desafios", icon: Brain },
-  { to: "/autismo", label: "Autismo", icon: Puzzle },
-  { to: "/blog", label: "Blog", icon: BookOpen },
-  { to: "/progresso", label: "Progresso", icon: Trophy },
+  { to: "/politicos", label: "Políticos", icon: Users },
+  { to: "/partidos", label: "Partidos", icon: Building2 },
+  { to: "/historia", label: "História", icon: BookOpen },
+  { to: "/candidatos", label: "Candidatos", icon: Map },
+  { to: "/documentacao", label: "Documentação", icon: FileText },
 ];
 
 export default function Layout() {
@@ -17,20 +17,20 @@ export default function Layout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-emerald-50/40">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md border-b border-border">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group">
             <motion.div
               whileHover={{ scale: 1.1, rotate: -8 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="w-9 h-9 rounded-2xl bg-gradient-to-br from-sky-400 to-emerald-400 flex items-center justify-center text-white text-lg shadow-sm"
+              className="w-9 h-9 rounded-sm bg-accent flex items-center justify-center text-accent-foreground text-lg shadow-sm"
             >
-              🧩
+              AV
             </motion.div>
-            <span className="font-heading font-bold text-slate-700 text-lg tracking-tight">
-              Emocionário Amigo
+            <span className="font-display font-bold text-foreground text-lg tracking-tight">
+              AuditVoto
             </span>
           </Link>
 
@@ -44,7 +44,7 @@ export default function Layout() {
                   key={item.to}
                   to={item.to}
                   className={`relative px-3.5 py-2 rounded-xl text-sm font-medium transition-colors ${
-                    active ? "text-sky-700" : "text-slate-500 hover:text-slate-700"
+                    active ? "text-accent" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
@@ -54,7 +54,7 @@ export default function Layout() {
                   {active && (
                     <motion.div
                       layoutId="navActive"
-                      className="absolute inset-0 bg-sky-100/70 rounded-xl -z-10"
+                      className="absolute inset-0 bg-accent/10 rounded-sm -z-10"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
@@ -66,7 +66,7 @@ export default function Layout() {
           {/* Mobile toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100"
+            className="md:hidden p-2 rounded-sm text-muted-foreground hover:bg-muted"
             aria-label="Menu"
           >
             {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -80,7 +80,7 @@ export default function Layout() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden overflow-hidden border-t border-slate-100 bg-white"
+              className="md:hidden overflow-hidden border-t border-border bg-background"
             >
               <div className="px-4 py-3 space-y-1">
                 {navItems.map((item) => {
@@ -92,7 +92,7 @@ export default function Layout() {
                       to={item.to}
                       onClick={() => setMenuOpen(false)}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium ${
-                        active ? "bg-sky-100 text-sky-700" : "text-slate-600"
+                        active ? "bg-accent/10 text-accent" : "text-muted-foreground"
                       }`}
                     >
                       <Icon className="w-4 h-4" />
@@ -107,14 +107,14 @@ export default function Layout() {
       </header>
 
       {/* Page content */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+      <main className="w-full px-0 py-0">
         <Outlet />
       </main>
 
-      <footer className="border-t border-slate-100 mt-12">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-sm text-slate-400">
-          <p>Emocionário Amigo · Um espaço calmo para entender emoções 🧩</p>
-          <p className="mt-1 text-xs">Feito com carinho para mentes neurodivergentes</p>
+      <footer className="border-t border-border mt-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 text-center text-sm text-muted-foreground">
+          <p>AuditVoto · Transparência política com fontes verificáveis</p>
+          <p className="mt-1 text-xs">Confira os registros nas fontes oficiais antes de tomar decisões.</p>
         </div>
       </footer>
     </div>
