@@ -1,34 +1,39 @@
 # AGENTS.md
 
-## Project Context
+## Contexto do projeto
 
-This is a Base44 app repository. Treat it as user-owned application code, keep changes focused on the user's request, and preserve existing project conventions.
+Este repositório contém o AuditVoto: frontend React/Vite, API Node.js e banco
+SQLite. Preserve as convenções existentes e mantenha alterações focadas.
 
-Start with `README.md` for local setup, environment variables, and publish workflow.
+## Arquivos principais
 
-## Base44 References
+- `src/`: frontend React.
+- `src/api/localApi.js`: cliente da API local.
+- `src/api/base44Client.js`: adaptador HTTP para as entidades e funções eleitorais
+  ainda hospedadas no Base44.
+- `server/server.js`: API, autenticação local, SQLite e serving do build.
+- `render.yaml`: Blueprint Render na raiz do repositório.
 
-- CLI overview: https://docs.base44.com/developers/references/cli/get-started/overview.md
-- Agent skills: https://docs.base44.com/developers/backend/overview/skills.md
+## Desenvolvimento e deploy
 
-If your agent supports Agent Skills, install or update Base44 skills before Base44-specific work:
+- Use `npm ci` para instalar as dependências do lockfile.
+- Use `npm run dev` na pasta `beta` para iniciar a API e o frontend.
+- Execute `npm run build` e `npm run lint` antes de concluir mudanças no app.
+- Para publicar arquivos em commits e pushes individuais, use
+  `npm run publish:files -- arquivo1 arquivo2` na pasta `beta`.
+- O Render executa `npm ci --include=dev`, `npm run build` e `npm start` a
+  partir de `beta`; a instalação inclui ferramentas de build mesmo com
+  `NODE_ENV=production`.
+- O SQLite de produção deve permanecer no disco persistente montado em
+  `/var/data`; nunca dependa do filesystem efêmero do serviço.
+- As sessões e os dados eleitorais ainda dependem do Base44 configurado por
+  `VITE_BASE44_APP_ID` e `VITE_BASE44_APP_BASE_URL`.
+- Mantenha segredos e URLs privados de provedores somente no backend. Variáveis
+  `VITE_*` são incluídas no build do navegador e não podem conter segredos.
 
-```bash
-npx skills add base44/skills
-```
+## Migração Base44
 
-## Key Files
-
-- `src/`: frontend application source.
-- `src/api/base44Client.js`: frontend Base44 SDK client.
-- `vite.config.js`: Vite config and Base44 Vite plugin setup.
-- `.env.local`: local-only environment values; never commit secrets.
-
-## Working Notes
-
-- Use `base44 dev` as the default local development command when you need the local Base44 backend. It can run the backend and frontend together.
-- When docs or code mention the frontend being started automatically, that usually means the Base44 project config includes `site.serveCommand`, for example `"serveCommand": "npm run dev"` in `base44/config.jsonc`.
-- Use `npm run dev` only for frontend-only work against the hosted Base44 backend.
-- Prefer the existing Base44 CLI workflow over adding new npm scripts for Base44-specific tasks.
-- Reuse the existing SDK client and Vite plugin patterns before adding new Base44 integration paths.
-- Run the relevant checks from `package.json` before finishing code changes.
+O SDK Base44 foi removido. As chamadas HTTP ao Base44 só permanecem para
+entidades e funções eleitorais sem implementação local. Não adicione novas
+dependências Base44; prefira migrar essas operações para a API local com dados
+e comportamento equivalentes antes de remover a compatibilidade existente.
