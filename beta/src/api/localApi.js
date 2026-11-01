@@ -29,8 +29,9 @@ const auth = {
     return data.user;
   },
   register: async ({ email, password }) => {
-    sessionStorage.setItem("amigo_autista_pending_password", password);
-    return request("/api/auth/register", { method: "POST", body: JSON.stringify({ email, password }) });
+    const data = await request("/api/auth/register", { method: "POST", body: JSON.stringify({ email, password }) });
+    if (data?.access_token) auth.setToken(data.access_token);
+    return data;
   },
   verifyOtp: async ({ email }) => {
     const password = sessionStorage.getItem("amigo_autista_pending_password");
@@ -41,6 +42,10 @@ const auth = {
   },
   resendOtp: async () => undefined,
   resetPasswordRequest: async (email) => request("/api/auth/reset", { method: "POST", body: JSON.stringify({ email }) }),
+  resetPassword: async ({ resetToken, newPassword }) => request("/api/auth/reset-password", {
+    method: "POST",
+    body: JSON.stringify({ resetToken, newPassword }),
+  }),
   setToken: (token) => localStorage.setItem(TOKEN_KEY, token),
   loginWithProvider: () => { throw new Error("Login social indisponível no modo local"); },
 };
