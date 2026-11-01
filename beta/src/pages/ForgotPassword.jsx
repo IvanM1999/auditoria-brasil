@@ -11,17 +11,19 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setLoading(true);
     try {
       await base44.auth.resetPasswordRequest(email);
-    } catch {
-      // Always show success regardless
+      setSent(true);
+    } catch (err) {
+      setError(err.message || "Não foi possível solicitar a redefinição.");
     } finally {
       setLoading(false);
-      setSent(true);
     }
   };
 
@@ -42,6 +44,7 @@ export default function ForgotPassword() {
         </p>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
           <div className="space-y-2">
             <Label htmlFor="email">Email address</Label>
             <div className="relative">
