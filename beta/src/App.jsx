@@ -15,7 +15,7 @@ import Politicos from '@/pages/Politicos';
 import PoliticoPerfil from '@/pages/PoliticoPerfil';
 import Partidos from '@/pages/Partidos';
 import PartidoPerfil from '@/pages/PartidoPerfil';
-import Historia from '@/pages/Historia';
+import Historia from '@/pages/História';
 import HistoriaFicha from '@/pages/HistoriaFicha';
 import Educacao from '@/pages/Educacao';
 import Documentacao from '@/pages/Documentacao';
