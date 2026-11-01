@@ -4,7 +4,7 @@ import { Download, MapPin, RefreshCw, Award, Info, ArrowRight, Sparkles } from "
 import { useLocation } from "@/lib/useLocation";
 import { loadCandidates, groupByCargo } from "@/lib/candidates";
 import { fetchMediaIndex } from "@/lib/evaluations";
-import { PLEITO_ORDER, CARGOS, classificacao, esferaLabel } from "@/lib/audit";
+import { PLEITO_ORDER, CARGOS, esferaLabel } from "@/lib/audit";
 import { generateVotingDossierPDF } from "@/lib/pdf";
 import { base44 } from "@/api/base44Client";
 import ScoreBadge from "@/components/ScoreBadge";
